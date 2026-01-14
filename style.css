@@ -33,6 +33,12 @@ body {
   font-size: 14px;
 }
 
+#show-selector {
+  width: 220px;
+  padding: 8px;
+  font-size: 14px;
+}
+
 #match-count {
   font-size: 14px;
   color: #555;

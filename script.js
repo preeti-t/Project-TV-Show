@@ -3,6 +3,8 @@ const searchInput = document.getElementById("search-input");
 const matchCount = document.getElementById("match-count");
 const episodeSelector = document.getElementById("episode-selector");
 const statusMessage = document.getElementById("status-message");
+const showSelector = document.getElementById("show-selector"); // Add this line
+let allShows = [];
 
 let allEpisodes = [];
 
@@ -12,6 +14,67 @@ function fetchEpisodes() {
   statusMessage.textContent = "Loading episodes...";
 
   fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load episode data");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      allEpisodes = data;
+      statusMessage.textContent = "";
+
+      renderEpisodes(allEpisodes);
+      populateEpisodeSelector(allEpisodes);
+      updateMatchCount(allEpisodes.length, allEpisodes.length);
+    })
+    .catch(() => {
+      statusMessage.textContent =
+        "Sorry, something went wrong while loading episodes. Please try again later.";
+    });
+}
+
+function fetchShows() {
+  fetch("https://api.tvmaze.com/shows")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load TV shows");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      allShows = data;
+      populateShowSelector(allShows);
+    })
+    .catch(() => {
+      statusMessage.textContent =
+        "Sorry, something went wrong while loading TV shows.";
+    });
+}
+function populateShowSelector(shows) {
+  showSelector.innerHTML = "<option value=''>Select a show</option>";
+  shows
+    .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+    .forEach((show) => {
+      const option = document.createElement("option");
+      option.value = show.id;
+      option.textContent = show.name;
+      showSelector.appendChild(option);
+    });
+}
+
+showSelector.addEventListener("change", (event) => {
+  const selectedShowId = event.target.value;
+
+  if (selectedShowId) {
+    fetchEpisodesForShow(selectedShowId);
+  }
+});
+
+function fetchEpisodesForShow(showId) {
+  statusMessage.textContent = "Loading episodes...";
+
+  fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to load episode data");
@@ -57,16 +120,11 @@ function renderEpisodes(episodes) {
 
     episodeDiv.innerHTML = `
       <h2>
-        ${episode.name} (${formatEpisodeCode(
-          episode.season,
-          episode.number
-        )})
+        ${episode.name} (${formatEpisodeCode(episode.season, episode.number)})
       </h2>
       
       <img src="${episode.image.medium}" alt="${episode.name}">
-      <p>Season: ${episode.season}</p>
-      <p>Episode: ${episode.number}</p>
-      <div>${episode.summary}</div>
+      <div>${episode.summary}</div> <!-- Display the summary directly -->
     `;
 
     root.appendChild(episodeDiv);
@@ -101,6 +159,7 @@ searchInput.addEventListener("input", (event) => {
 /* Episode Selector */
 
 function populateEpisodeSelector(episodes) {
+  episodeSelector.innerHTML = "<option value=''>Select an episode</option>";
   episodes.forEach((episode) => {
     const option = document.createElement("option");
     const episodeCode = formatEpisodeCode(episode.season, episode.number);
@@ -115,8 +174,7 @@ episodeSelector.addEventListener("change", (event) => {
   const selectedEpisodeCode = event.target.value;
 
   if (selectedEpisodeCode) {
-    const selectedEpisodeDiv =
-      document.getElementById(selectedEpisodeCode);
+    const selectedEpisodeDiv = document.getElementById(selectedEpisodeCode);
 
     if (selectedEpisodeDiv) {
       selectedEpisodeDiv.scrollIntoView({ behavior: "smooth" });
@@ -126,4 +184,4 @@ episodeSelector.addEventListener("change", (event) => {
 
 /*  Start App */
 
-fetchEpisodes();
+fetchShows();
