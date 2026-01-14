@@ -3,42 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Preeti Tyagi (preeti-t)</title>
-    <link href="style.css" rel="stylesheet" />
+    <title>TV Show Project | Preeti Tyagi</title>
+
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <!-- NAV -->
-    <nav>
-      <a href="#" id="back-to-shows" style="display: none">← Back to shows</a>
-    </nav>
+    <!-- Top Controls -->
+    <header id="top-bar">
+      <button id="back-to-shows" hidden>← Back to Shows</button>
 
-    <!-- SHOW SEARCH -->
-    <div id="show-search-container">
       <input
         type="text"
-        id="show-search"
-        placeholder="Search shows..."
+        id="search-input"
+        placeholder="Search shows or episodes..."
       />
-    </div>
 
-    <!-- SHOWS LISTING -->
-    <div id="shows-root"></div>
-
-    <!-- EPISODES CONTROLS -->
-    <div id="top-bar" style="display: none">
-      <input type="text" id="search-input" placeholder="Search episodes..." />
-      <p id="match-count"></p>
-
-      <select id="episode-selector">
-        <option value="">Select an episode</option>
+      <select id="sort-selector">
+        <option value="az">Sort A–Z</option>
+        <option value="rating">Highest Rated</option>
       </select>
-    </div>
+
+      <select id="episode-selector" hidden>
+        <option value="">Jump to episode...</option>
+      </select>
+
+      <p id="match-count"></p>
+    </header>
 
     <p id="status-message"></p>
 
-    <!-- EPISODES LIST -->
-    <div id="root"></div>
+    <!-- Shows Listing -->
+    <main id="shows-view"></main>
+
+    <!-- Episodes Listing -->
+    <main id="episodes-view" hidden></main>
+
+    <footer>
+      <p>
+        Data from
+        <a href="https://www.tvmaze.com" target="_blank">TVMaze.com</a>
+      </p>
+    </footer>
 
     <script src="script.js"></script>
   </body>
