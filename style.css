@@ -1,155 +1,96 @@
-/*  Reset & Base  */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f4f4f4;
+  font-family: system-ui, sans-serif;
+  background: #f4f4f4;
   color: #222;
 }
 
-/*  Top Bar  */
+/* Header */
 #top-bar {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  gap: 12px;
   padding: 16px;
-  background-color: #ffffff;
+  background: white;
   border-bottom: 1px solid #ddd;
   flex-wrap: wrap;
 }
 
-#search-input {
-  width: 200px;
+input,
+select,
+button {
   padding: 8px;
   font-size: 14px;
 }
 
-#episode-selector {
-  width: 220px;
-  padding: 8px;
-  font-size: 14px;
-}
-
-#show-selector {
-  width: 220px;
-  padding: 8px;
-  font-size: 14px;
-}
-
-#match-count {
-  font-size: 14px;
-  color: #555;
-}
-
-/*  Status Message  */
-#status-message {
-  padding: 12px 16px;
-  font-size: 14px;
-  color: #333;
-}
-
-#status-message:empty {
-  display: none;
-}
-
-/*  Episodes Grid  */
-#root {
-  padding: 16px;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-}
-
-/* Shows Grid */
-#shows-root {
+/* Views */
+main {
   padding: 16px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
 
-.show-card {
-  background: white;
-  border: 1px solid #ccc;
-  padding: 12px;
-  cursor: pointer;
-}
-
-.show-card img {
-  width: 100%;
-  border-radius: 4px;
-}
-
-.show-card h2 {
-  margin: 8px 0;
-}
-
-nav {
-  padding: 10px;
-}
-
-
-/*  Episode Card  */
+/* Show Card */
+.show-card,
 .episode {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 12px;
-
+  background: white;
+  padding: 14px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.episode h2 {
-  font-size: 1rem;
-  margin: 0;
-}
-
+.show-card img,
 .episode img {
   width: 100%;
-  height: auto;
   border-radius: 4px;
 }
 
-.episode p,
-.episode div {
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/*  Footer */
-footer {
-  margin-top: 20px;
-  padding: 12px;
-  text-align: center;
-  font-size: 13px;
-  background-color: #ffffff;
-  border-top: 1px solid #ddd;
-}
-
-footer a {
+.show-title {
+  cursor: pointer;
   color: #3366cc;
-  text-decoration: none;
 }
 
-footer a:hover {
+.show-title:hover {
   text-decoration: underline;
 }
 
-/*  Responsive  */
-@media (max-width: 600px) {
+.meta {
+  font-size: 13px;
+  color: #555;
+}
+
+.genres {
+  font-size: 13px;
+  font-style: italic;
+}
+
+.read-more,
+.fav-btn {
+  background: none;
+  border: none;
+  color: #3366cc;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+  background: white;
+  border-top: 1px solid #ddd;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
   #top-bar {
     flex-direction: column;
-    align-items: stretch;
-  }
-
-  #search-input,
-  #episode-selector {
-    width: 100%;
   }
 }
