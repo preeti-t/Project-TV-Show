@@ -64,6 +64,35 @@ body {
   gap: 16px;
 }
 
+/* Shows Grid */
+#shows-root {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.show-card {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.show-card img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.show-card h2 {
+  margin: 8px 0;
+}
+
+nav {
+  padding: 10px;
+}
+
+
 /*  Episode Card  */
 .episode {
   background-color: #ffffff;
